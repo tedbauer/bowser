@@ -11,7 +11,7 @@ opam install menhir
 
 
 dune build bowser.exe
-dune exec bin/bowser.exe
+cat webpages/page_simple.html | dune exec bin/bowser.exe
 ```
 
 ## References
