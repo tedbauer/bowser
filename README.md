@@ -13,3 +13,6 @@ opam install menhir
 dune build bowser.exe
 dune exec bin/bowser.exe
 ```
+
+## References
+- https://github.com/sampsyo/lang-start
