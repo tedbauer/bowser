@@ -37,19 +37,10 @@ let comm (text : string) = {
 
 let rec depth (node: node) =
   let { children; _ } = node in
-  let cmp_depth = fun a b ->
-    let d_a = depth a in
-    let d_b = depth b in
-    if d_a > d_b then
-      1
-    else if d_a < d_b then
-      -1
-    else 0 in
+  List.map ~f:depth children
+  |> List.max_elt ~compare:Int.compare
+  |> Option.value_map ~default:0 ~f:(fun d -> d + 1)
   
-  match List.max_elt children ~compare:cmp_depth with
-  | Some(max_node) -> 1 + depth max_node
-  | None -> 1
-
 let rec pprint_s (node : node) (indent : int) =
   let { node_typ; children } = node in
 
