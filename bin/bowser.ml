@@ -25,4 +25,8 @@ let () =
   Dom.pprint(n);
   Stdio.print_endline "Depth of DOM tree:";
   let (d : int) = Dom.depth n in
-  Stdio.print_endline (string_of_int d)
+  Stdio.print_endline (string_of_int d);
+
+  let lexbuf = Lexing.from_channel stdin in
+    let page = Html_parser.page Html_lexer.token lexbuf in
+    Dom.pprint page
