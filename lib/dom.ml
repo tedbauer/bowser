@@ -35,6 +35,21 @@ let comm (text : string) = {
   children = []
 }
 
+let rec depth (node: node) =
+  let { children; _ } = node in
+  let cmp_depth = fun a b ->
+    let d_a = depth a in
+    let d_b = depth b in
+    if d_a > d_b then
+      1
+    else if d_a < d_b then
+      -1
+    else 0 in
+  
+  match List.max_elt children ~compare:cmp_depth with
+  | Some(max_node) -> 1 + depth max_node
+  | None -> 1
+
 let rec pprint_s (node : node) (indent : int) =
   let { node_typ; children } = node in
 
@@ -46,7 +61,7 @@ let rec pprint_s (node : node) (indent : int) =
   let child_s = fun c -> pprint_s c (indent + 1) in
   let all_child_s = 
     List.map ~f:child_s children
-    |> fun c -> String.concat ~sep:"\n" c in
+    |> String.concat ~sep:"\n" in
 
   let rec repeat (s : string) (n : int) =
     if n = 0 then "" else " " ^ (repeat s (n - 1)) in

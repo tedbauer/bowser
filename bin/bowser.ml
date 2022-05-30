@@ -21,4 +21,8 @@ let () =
     ]
   } in
 
-  Dom.pprint(n)
+  Stdio.print_endline "Pretty-printed DOM tree:";
+  Dom.pprint(n);
+  Stdio.print_endline "Depth of DOM tree:";
+  let (d : int) = Dom.depth n in
+  Stdio.print_endline (string_of_int d)
