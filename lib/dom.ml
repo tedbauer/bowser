@@ -12,6 +12,10 @@ let get_id (data: element_data) =
 
 let get_classes (data: element_data) =
   Map.find data.attributes "class"
+  |> Option.value_map ~default:(Set.empty (module String)) ~f:(fun classes ->
+    classes
+    |> String.split ~on:','
+    |> Set.of_list (module String))
 
 type node_type =
   | Text of string
