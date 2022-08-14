@@ -1,7 +1,9 @@
 open Base
 
-type attr_map = string Map.M(String).t
+type attr_map = string Map.M(String).t [@@deriving sexp]
+
 type element_data = { tag_name : string; attributes : attr_map }
+[@@deriving sexp]
 
 let get_id (data : element_data) = Map.find data.attributes "id"
 
@@ -13,7 +15,9 @@ let get_classes (data : element_data) =
          classes |> String.split ~on:' ' |> Set.of_list (module String))
 
 type node_type = Text of string | Element of element_data | Comment of string
-type node = { node_typ : node_type; children : node list }
+[@@deriving sexp]
+
+type node = { node_typ : node_type; children : node list } [@@deriving sexp]
 
 let text (data : string) = { node_typ = Text data; children = [] }
 

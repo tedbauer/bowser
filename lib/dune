@@ -8,4 +8,4 @@
  (name lib)
  (libraries base stdio)
  (preprocess
-  (pps ppx_deriving.show ppx_deriving.ord)))
+  (pps ppx_sexp_conv ppx_deriving.ord)))

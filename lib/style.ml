@@ -1,12 +1,13 @@
 open Base
 
-type property_map = Stylesheet.value Map.M(String).t
+type property_map = Stylesheet.value Map.M(String).t [@@deriving sexp]
 
 type styled_node = {
   node : Dom.node;
   specified_values : property_map;
   children : styled_node list;
 }
+[@@deriving sexp]
 
 (** [matches e s] is true if [s] selects [e], false otherwise. *)
 let matches (elem : Dom.element_data) (selector : Stylesheet.selector) =

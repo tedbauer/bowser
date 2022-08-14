@@ -9,6 +9,7 @@ depends: [
   "menhir"
   "ocamlformat"
   "ppx_deriving"
+  "ppx_sexp_conv"
   "odoc" {with-doc}
 ]
 build: [

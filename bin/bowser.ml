@@ -216,7 +216,11 @@ let test_node : Dom.node =
 let () =
   With_return.with_return (fun r ->
       Dom.pprint test_node;
-      ignore test_stylesheet;
+
+      [%sexp_of: Style.styled_node]
+        (Style.gen_style_tree test_node test_stylesheet)
+      |> Sexp.to_string |> Stdio.print_endline;
+
       ignore n;
       Graphics.open_graph "";
       while true do

@@ -1,4 +1,6 @@
 (executable
  (public_name bowser)
  (name bowser)
- (libraries lib base graphics))
+ (libraries lib base graphics)
+ (preprocess
+  (pps ppx_sexp_conv ppx_deriving.ord)))
