@@ -6,7 +6,7 @@
 
 (package
  (name bowser)
- (synopsis "Toy browser engine")
- (description "A toy browser engine."))
+ (depends base graphics stdio menhir)
+ (synopsis "Toy browser engine"))
 
 (using menhir 2.0)

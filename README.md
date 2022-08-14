@@ -4,13 +4,16 @@ Toy browser implementation, following https://limpet.net/mbrubeck/2014/08/08/toy
 
 ## Setup/run
 
+Generate the OPAM file and install dependencies:
 ```
-opam install base
-opam install stdio
-opam install menhir
+dune build @check
+opam install . --deps-only
+```
 
+On MacOS, [install XQuartz](https://www.xquartz.org/).
 
-dune build
+Run the browser:
+```
 dune exec bowser
 ```
 
