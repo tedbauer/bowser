@@ -1,5 +1,6 @@
 (menhir
-  (modules html_parser))
+  (modules html_parser)
+  (flags --explain))
 
 (ocamllex html_lexer)
 

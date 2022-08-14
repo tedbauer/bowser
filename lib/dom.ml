@@ -7,6 +7,12 @@ type element_data = {
   attributes: attr_map
 }
 
+let get_id (data: element_data) =
+  Map.find data.attributes "id"
+
+let get_classes (data: element_data) =
+  Map.find data.attributes "class"
+
 type node_type =
   | Text of string
   | Element of element_data
@@ -18,7 +24,7 @@ type node = {
 }
 
 let text (data : string) = {
-  node_typ = Text(data) ;  
+  node_typ = Text(data) ;
   children = []
 }
 
@@ -34,6 +40,10 @@ let comm (text : string) = {
   node_typ = Comment(text);
   children = []
 }
+
+let rec tree_size (node : node) =
+  let { children; _ } = node in
+  List.fold children ~init:1 ~f:(fun acc n -> acc + tree_size n)
 
 let rec depth (node: node) =
   let { children; _ } = node in

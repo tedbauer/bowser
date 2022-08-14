@@ -21,6 +21,6 @@ let n = {
 }
 
 let () =
-  let lexbuf = Lexing.from_channel stdin in
-    let page = Html_parser.page Html_lexer.token lexbuf in
-    Dom.pprint page
+  (* let lexbuf = Lexing.from_channel stdin in
+    let page = Html_parser.page Html_lexer.token lexbuf in *)
+    Dom.pprint n

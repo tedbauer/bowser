@@ -14,25 +14,25 @@
 %%
 
 page:
-  | n = node
+  | n = node EOF
     { n }
   ;
 
 node:
-  | o = opening_tag; n = node; closing_tag
+  | o = opening_tag; n = nodes; closing_tag
     {
       {
         node_typ = Text(o);
-        children = [n]
+        children = n
       }
     }
-  | o = opening_tag; closing_tag
-    {
-      {
-        node_typ = Text(o);
-        children = []
-      }
-    }
+  ;
+
+nodes:
+  | COMMA
+    { [] }
+  | hd = node; tl = nodes
+    { hd :: tl }
   ;
 
 opening_tag:
