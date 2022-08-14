@@ -10,7 +10,7 @@ let get_classes (data : element_data) =
   |> Option.value_map
        ~default:(Set.empty (module String))
        ~f:(fun classes ->
-         classes |> String.split ~on:',' |> Set.of_list (module String))
+         classes |> String.split ~on:' ' |> Set.of_list (module String))
 
 type node_type = Text of string | Element of element_data | Comment of string
 type node = { node_typ : node_type; children : node list }

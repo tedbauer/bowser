@@ -15,10 +15,10 @@ let matches (elem : Dom.element_data) (selector : Stylesheet.selector) =
       let type_selector_matches =
         Option.value_map s.tag_name
           ~f:(fun name -> String.equal name elem.tag_name)
-          ~default:false
+          ~default:true
       in
       let id_selector_matches =
-        Option.value_map s.id ~default:false ~f:(fun s_id ->
+        Option.value_map s.id ~default:true ~f:(fun s_id ->
             Dom.get_id elem
             |> Option.value_map ~default:false ~f:(fun elem_id ->
                    String.equal elem_id s_id))
