@@ -17,6 +17,8 @@ Run the browser:
 dune exec bowser
 ```
 
+Press any key to close the window.
+
 Build parser and see any conflicts:
 ```
 menhir lib/html_parser.mly --explain

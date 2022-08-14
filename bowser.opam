@@ -7,6 +7,8 @@ depends: [
   "graphics"
   "stdio"
   "menhir"
+  "ocamlformat"
+  "ppx_deriving"
   "odoc" {with-doc}
 ]
 build: [

@@ -1,9 +1,11 @@
 (menhir
-  (modules html_parser)
-  (flags --explain))
+ (modules html_parser)
+ (flags --explain))
 
 (ocamllex html_lexer)
 
 (library
-  (name lib)
-  (libraries base stdio))
+ (name lib)
+ (libraries base stdio)
+ (preprocess
+  (pps ppx_deriving.show ppx_deriving.ord)))
