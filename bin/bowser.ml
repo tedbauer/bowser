@@ -217,8 +217,12 @@ let () =
   With_return.with_return (fun r ->
       Dom.pprint test_node;
 
-      [%sexp_of: Style.styled_node]
-        (Style.gen_style_tree test_node test_stylesheet)
+      let layout_tree =
+        Style.gen_style_tree test_node test_stylesheet
+        |> Layout.build_layout_tree
+      in
+
+      [%sexp_of: Layout.layout_box] layout_tree
       |> Sexp.to_string |> Stdio.print_endline;
 
       ignore n;

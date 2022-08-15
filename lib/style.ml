@@ -9,6 +9,19 @@ type styled_node = {
 }
 [@@deriving sexp]
 
+type display = Inline | Block | None_ [@@deriving sexp, eq]
+
+let value_of (node : styled_node) ~(field : string) =
+  Map.find node.specified_values field
+
+let display_of (node : styled_node) =
+  match value_of node ~field:"display" with
+  | Some (Stylesheet.Keyword s) ->
+      if String.equal s "block" then Block
+      else if String.equal s "none" then None_
+      else Inline
+  | Some _ | None -> Inline
+
 (** [matches e s] is true if [s] selects [e], false otherwise. *)
 let matches (elem : Dom.element_data) (selector : Stylesheet.selector) =
   match selector with
