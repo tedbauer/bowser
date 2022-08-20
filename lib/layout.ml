@@ -6,7 +6,7 @@ type rect = { x : float; y : float; width : float; height : float }
 type edge_sizes = { left : float; right : float; top : float; bottom : float }
 [@@deriving sexp]
 
-let expanded_by (e : edge_sizes) (r: rect )=
+let expanded_by (e : edge_sizes) (r : rect) =
   {
     x = r.x -. e.left;
     y = r.y -. e.top;
@@ -64,10 +64,9 @@ let rec compute_block_height (node : layout_box) =
     |> List.fold ~init:0. ~f:(fun acc e -> acc +. e)
   in
   let margin_box =
-    node.d.content
-    |> expanded_by node.d.padding
-    |> expanded_by node.d.border
-    |> expanded_by node.d.margin in
+    node.d.content |> expanded_by node.d.padding |> expanded_by node.d.border
+    |> expanded_by node.d.margin
+  in
   let curr_height =
     Map.find style_node.specified_values "height"
     |> Option.value_map
@@ -80,7 +79,7 @@ let rec compute_block_height (node : layout_box) =
     children = children_computed;
   }
 
-let rec compute_block_pos (containing_dims : dimensions) (node: layout_box )=
+let rec compute_block_pos (containing_dims : dimensions) (node : layout_box) =
   let style_node = get_style_node_exn node in
   let zero = Stylesheet.Length (0., Stylesheet.Px) in
 
@@ -131,7 +130,7 @@ let rec compute_block_pos (containing_dims : dimensions) (node: layout_box )=
       };
   }
 
-let rec compute_block_width (containing_dims : dimensions) (node: layout_box)=
+let rec compute_block_width (containing_dims : dimensions) (node : layout_box) =
   let style_node = get_style_node_exn node in
 
   let auto = Stylesheet.Keyword "auto" in
@@ -314,13 +313,15 @@ let rec build_layout_tree (root : Style.styled_node) =
   in
   { box_type_; children; d = default_dimensions }
 
-let build_layout_tree_with_dims (root: Style.styled_node) =
-  let container: dimensions = {
-    content = {x = 0.; y = 0.; height = 400.; width = 400.;};
-    padding = {left = 0.; right = 0.; top = 0.; bottom = 0.; };
-    border = {left = 0.; right = 0.; top = 0.; bottom = 0.; };
-    margin = {left = 0.; right = 0.; top = 0.; bottom = 0.; };
-  } in
+let build_layout_tree_with_dims (root : Style.styled_node) =
+  let container : dimensions =
+    {
+      content = { x = 0.; y = 0.; height = 400.; width = 400. };
+      padding = { left = 0.; right = 0.; top = 0.; bottom = 0. };
+      border = { left = 0.; right = 0.; top = 0.; bottom = 0. };
+      margin = { left = 0.; right = 0.; top = 0.; bottom = 0. };
+    }
+  in
   build_layout_tree root
   |> compute_block_width container
   |> compute_block_pos container
