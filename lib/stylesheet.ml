@@ -1,14 +1,19 @@
 open Base
 
-type color = { r : int; g : int; b : int; a : int } [@@deriving sexp]
-type length_unit = Px [@@deriving sexp]
+type color = { r : int; g : int; b : int; a : int } [@@deriving sexp, eq]
+type length_unit = Px [@@deriving sexp, eq]
 type b = A of int * length_unit | B of string [@@deriving sexp]
 
 type value =
   | Keyword of string
   | Length of float * length_unit
   | ColorValue of color
-[@@deriving sexp]
+[@@deriving sexp, eq]
+
+let pixels_of_exn = function
+  | Keyword _ -> failwith "tried to get length of keyword"
+  | ColorValue _ -> failwith "tried to get length of color"
+  | Length (l, Px) -> l
 
 type declaration = { name : string; value_ : value } [@@deriving sexp]
 
