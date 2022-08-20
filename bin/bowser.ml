@@ -219,7 +219,7 @@ let () =
 
       let layout_tree =
         Style.gen_style_tree test_node test_stylesheet
-        |> Layout.build_layout_tree
+        |> Layout.build_layout_tree_with_dims
       in
 
       [%sexp_of: Layout.layout_box] layout_tree
