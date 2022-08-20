@@ -227,6 +227,8 @@ let () =
 
       ignore n;
       Graphics.open_graph "";
+      Draw.paint layout_tree;
+
       while true do
         let st = Graphics.wait_next_event [ Graphics.Key_pressed ] in
         Graphics.synchronize ();
